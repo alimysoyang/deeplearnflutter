@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:deeplearnflutter/modules/iofile.dart';
 import 'dart:io';
 
+enum FileSystemType { newDirectory, newFile, deleteFile }
+
 class FileSystemDemoPage extends StatefulWidget {
 
   @override
@@ -23,8 +25,6 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
   final IOFile _ioFile = IOFile();
 
   String _inputValue = '';
-
-  final TextEditingController _controller = TextEditingController();
 
   void _androidPopup<T>({BuildContext context, Widget child}) {
     showDialog<T>(
@@ -52,22 +52,21 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
     _androidPopup<String>(
       context: context,
       child: AlertDialog(
-        content: TextFormField(
-          keyboardType: TextInputType.text,
+        content: TextField(
+          textCapitalization: TextCapitalization.characters,
           autocorrect: false,
-          maxLines: 1,
-          onSaved: (String value) {
-
-          },
-          validator: (String value) {
-
-          },
+          textInputAction: TextInputAction.done,
           decoration: InputDecoration(
-            labelText: '请输入姓名',
-            hintText: '您的名字',
-            icon: Icon(Icons.person),
-            labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid),
+            hintText: '请输入文件夹名',
+            hintStyle: TextStyle(fontSize: 13.0),
+            prefixIcon: Icon(Icons.edit),
           ),
+          onChanged: (String value) {
+            setState(() { _inputValue = value; });
+          },
+          onSubmitted: (String value) {
+            setState(() { _inputValue = value; });
+          },
         ),
         actions: <Widget>[
           RaisedButton(
@@ -90,6 +89,22 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
     );
   }
 
+// TextFormField(
+//           keyboardType: TextInputType.text,
+//           autocorrect: false,
+//           maxLines: 1,
+//           onSaved: (String value) {
+
+//           },
+//           validator: (String value) {
+
+//           },
+//           decoration: InputDecoration(
+//             hintText: '请输入文件夹名',
+//             icon: Icon(Icons.edit),
+//             labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid),
+//           ),
+//         ),
   // void _showAndroidInput(BuildContext context) {
   //   _androidPopup<String>(
   //     context: context,
@@ -141,50 +156,84 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
   void _showiOSInput(BuildContext context) {
     _iosPopup<String>(
       context: context, 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          CupertinoTextField(
-            prefix: Icon(CupertinoIcons.pen, color: CupertinoColors.lightBackgroundGray, size: 24.0),
-            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 12.0),
-            clearButtonMode: OverlayVisibilityMode.editing,
-            textCapitalization: TextCapitalization.characters,
-            autocorrect: false,
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(width: 0.0, color: CupertinoColors.inactiveGray)),
-            ),
-            placeholder: '文件夹名',
-            onChanged: (String value) {
-              setState(() { _inputValue = value; });
-            },
-            onEditingComplete: () {
-
-            },
-            onSubmitted: (String value) {
-              setState(() { _inputValue = value; });
+      child: CupertinoAlertDialog(
+        content: CupertinoTextField(
+          prefix: Icon(CupertinoIcons.pen, color: CupertinoColors.lightBackgroundGray, size: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 12.0),
+          clearButtonMode: OverlayVisibilityMode.editing,
+          textCapitalization: TextCapitalization.characters,
+          autocorrect: false,
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(width: 0.0, color: CupertinoColors.inactiveGray)),
+          ),
+          placeholder: '文件夹名',
+          onChanged: (String  value) {
+            setState(() { _inputValue = value; });
+          },
+          onSubmitted: (String value) {
+            setState(() { _inputValue = value; });
+          },
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Text('确定'),
+            onPressed: () {
+              Navigator.pop(context, _inputValue);
+              _ioFile.createDirectory(_inputValue);
             },
           ),
-          ButtonBar(
-            children: <Widget>[
-              CupertinoButton(
-                child: Text('确定'),
-                color: CupertinoColors.destructiveRed,
-                onPressed: () {
-                  Navigator.pop(context, _inputValue);
-                  _ioFile.createDirectory(_inputValue);
-                },
-              ),
-              CupertinoButton(
-                child: Text('取消'),
-                color: CupertinoColors.activeBlue,
-                onPressed: () {
-                  Navigator.pop(context, '');
-                },
-              ),
-            ],
+          CupertinoDialogAction(
+            child: Text('取消'),
+            onPressed: () {
+              Navigator.pop(context, '');
+            },
           ),
         ],
       ),
+      // child: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.stretch,
+      //   children: <Widget>[
+      //     CupertinoTextField(
+      //       prefix: Icon(CupertinoIcons.pen, color: CupertinoColors.lightBackgroundGray, size: 24.0),
+      //       padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 12.0),
+      //       clearButtonMode: OverlayVisibilityMode.editing,
+      //       textCapitalization: TextCapitalization.characters,
+      //       autocorrect: false,
+      //       decoration: BoxDecoration(
+      //         border: Border(bottom: BorderSide(width: 0.0, color: CupertinoColors.inactiveGray)),
+      //       ),
+      //       placeholder: '文件夹名',
+      //       onChanged: (String value) {
+      //         setState(() { _inputValue = value; });
+      //       },
+      //       onEditingComplete: () {
+
+      //       },
+      //       onSubmitted: (String value) {
+      //         setState(() { _inputValue = value; });
+      //       },
+      //     ),
+      //     ButtonBar(
+      //       children: <Widget>[
+      //         CupertinoButton(
+      //           child: Text('确定'),
+      //           color: CupertinoColors.destructiveRed,
+      //           onPressed: () {
+      //             Navigator.pop(context, _inputValue);
+      //             _ioFile.createDirectory(_inputValue);
+      //           },
+      //         ),
+      //         CupertinoButton(
+      //           child: Text('取消'),
+      //           color: CupertinoColors.activeBlue,
+      //           onPressed: () {
+      //             Navigator.pop(context, '');
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
     );
   }
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:simple_permissions/simple_permissions.dart';
+// import 'package:simple_permissions/simple_permissions.dart';
 
 class IOFile {
   String rwfilePath = '';
@@ -39,27 +39,27 @@ class IOFile {
   }
 
   void _showAndroidFiles(String dir) async {
-    try {
-      var permission = SimplePermissions.requestPermission(Permission.ReadExternalStorage);
-      getExternalStorageDirectory().then((Directory file) {
-        permission.then((PermissionStatus status) {
-          var count = file.listSync().length;
-          if (count > 0)
-          {
-            file.listSync().forEach((FileSystemEntity entity) {
-              if (entity is File) {
-                print('这是文件:${entity.path}');
-              } else if (entity is Directory) {
-                print('这是文件夹${entity.path}');
-                _showAndroidFiles(entity.path);
-              }
-            });
-          }
-        });
-      });
-    } catch (e) {
-      print('Android遍历文件错误:${e.toString()}');
-    }
+    // try {
+    //   var permission = SimplePermissions.requestPermission(Permission.ReadExternalStorage);
+    //   getExternalStorageDirectory().then((Directory file) {
+    //     permission.then((PermissionStatus status) {
+    //       var count = file.listSync().length;
+    //       if (count > 0)
+    //       {
+    //         file.listSync().forEach((FileSystemEntity entity) {
+    //           if (entity is File) {
+    //             print('这是文件:${entity.path}');
+    //           } else if (entity is Directory) {
+    //             print('这是文件夹${entity.path}');
+    //             _showAndroidFiles(entity.path);
+    //           }
+    //         });
+    //       }
+    //     });
+    //   });
+    // } catch (e) {
+    //   print('Android遍历文件错误:${e.toString()}');
+    // }
   }
 
   void _showiOSFiles(String dir) async {
@@ -105,6 +105,8 @@ class IOFile {
     } else if (Platform.isAndroid) {
       rwfilePath = path.join(Directory.systemTemp.parent.path, '$dirName');
     }
+    print('准备创建目录:$rwfilePath');
+
     Directory dir = Directory(rwfilePath);
     if (!dir.existsSync()) {
       dir.create().then((Directory newDir) {
@@ -121,6 +123,23 @@ class IOFile {
       filePath = path.join(Directory.systemTemp.parent.path, 'Documents/log.txt');
     } else if (Platform.isAndroid) {
       filePath = path.join(Directory.systemTemp.parent.path, 'log.txt');
+    }
+
+    var file = File(filePath);
+    var sink = file.openWrite(mode: FileMode.append);
+    for (int i = 0; i < 1000;i++) {
+      sink.write('$i. File Accessed ${DateTime.now()}\n');
+    }
+    await sink.flush();
+    await sink.close();
+  }
+
+  Future<void> appendWriteNewFile(String fileName) async {
+    String filePath = '';
+    if (Platform.isIOS) {
+      filePath = path.join(Directory.systemTemp.parent.path, 'Documents/$fileName');
+    } else if (Platform.isAndroid) {
+      filePath = path.join(Directory.systemTemp.parent.path, '$fileName');
     }
 
     var file = File(filePath);
@@ -149,8 +168,25 @@ class IOFile {
     } catch (e) {
       print('写文件错误:${e.toString()}');
     }
-    
+  }
 
+  void rewriteNewFile(String fileName) {
+    String filePath = '';
+    if (Platform.isIOS) {
+      filePath = path.join(Directory.systemTemp.parent.path, 'Documents/$fileName');
+    } else if (Platform.isAndroid) {
+      filePath = path.join(Directory.systemTemp.parent.path, '$fileName');
+    }
+
+    try {
+      var file = File(filePath);
+      for (int i = 9999;i < 100000;i++) {
+        file.writeAsStringSync('$i, File Accessed ${DateTime.now()}\n');
+      }
+      print('写文件完成');
+    } catch (e) {
+      print('写文件错误:${e.toString()}');
+    }
   }
 
   void readAsLinesFile() {
@@ -267,6 +303,27 @@ class IOFile {
         });
       }
     } catch (e) {
+      print('文件删除失败:${e.toString()}');
+    }
+  }
+
+  void deleteTheFile(String fileName) {
+    String filePath = '';
+    if (Platform.isIOS) {
+      filePath = path.join(Directory.systemTemp.parent.path, 'Documents/$fileName');
+    } else if (Platform.isAndroid) {
+      filePath = path.join(Directory.systemTemp.parent.path, '$fileName');
+    }
+
+    try {
+      var file = File(filePath);
+      if (file.existsSync()) {
+        file.delete().then((FileSystemEntity entity) {
+          print('文件已删除');
+        });
+      }
+    } catch (e) {
+      print('文件删除失败:${e.toString()}');
     }
   }
 }

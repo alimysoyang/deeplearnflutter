@@ -2,7 +2,6 @@ package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.pathprovider.PathProviderPlugin;
-import com.ethras.simplepermissions.SimplePermissionsPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -13,7 +12,6 @@ public final class GeneratedPluginRegistrant {
       return;
     }
     PathProviderPlugin.registerWith(registry.registrarFor("io.flutter.plugins.pathprovider.PathProviderPlugin"));
-    SimplePermissionsPlugin.registerWith(registry.registrarFor("com.ethras.simplepermissions.SimplePermissionsPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
