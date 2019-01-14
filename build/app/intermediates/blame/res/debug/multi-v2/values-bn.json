@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Project/FlutterProjects/deeplearnflutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-bn/values-bn.xml",
+            "map": [
+                {
+                    "source": "/Users/a-bobo/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/733b362d18a3f8efe13921e8070344b1/res/values-bn/values-bn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
