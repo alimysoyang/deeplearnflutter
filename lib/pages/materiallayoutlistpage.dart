@@ -4,6 +4,9 @@ import 'materialrowdemopage.dart';
 import 'materialcolumndemopage.dart';
 import 'containerdemopage.dart';
 import 'singlechildscrollviewdemopage.dart';
+import 'materialscrollimitreachedemopage.dart';
+import 'materialscrollmovementdemopage.dart';
+import 'materialscrollstatusdemopage.dart';
 
 class MaterialLayoutListPage extends StatelessWidget {
   final List<DemoItem> demos = <DemoItem>[
@@ -11,6 +14,9 @@ class MaterialLayoutListPage extends StatelessWidget {
     DemoItem(icon: Icons.list, title: 'Layout Column', subtitle: 'Material Layout Column Demo'),
     DemoItem(icon: Icons.view_column, title: 'Container', subtitle: 'Material Container Demo'),
     DemoItem(icon: Icons.line_style, title: 'SingleChildScrollView', subtitle: 'Material SingleChildScrollView Demo'),
+    DemoItem(icon: Icons.line_weight, title: 'Scroll Limit Reached', subtitle: 'Material Scroll Limit Reached Demo'),
+    DemoItem(icon: Icons.linear_scale, title: 'Scroll Movement', subtitle: 'Material Scroll Movement Demo'),
+    DemoItem(icon: Icons.scatter_plot, title: 'Scroll Status', subtitle: 'Material Scroll Status'),
   ];
 
   @override
@@ -39,6 +45,12 @@ class MaterialLayoutListPage extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ContainerDemoPage()));
                 } else if (index == 3) {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SingleChildScrollViewDemoPage()));
+                } else if (index == 4) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialScrollLimitReachedDemoPage()));
+                } else if (index == 5) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialScrollMovementDemoPage()));
+                } else if (index == 6) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialScrollStatusDemoPage()));
                 }
               },
             );
