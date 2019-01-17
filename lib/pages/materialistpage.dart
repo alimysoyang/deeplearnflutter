@@ -15,8 +15,18 @@ import 'stepperdemopage.dart';
 import 'sliverdemopage.dart';
 import 'nestedscrollviewdemopage.dart';
 import 'expansionpaneldemopage.dart';
+import 'customnotificationdemopage.dart';
+import 'sliderdemopage.dart';
+import 'textfieldemopage.dart';
 
-class MaterialListPage extends StatelessWidget {
+class MaterialListPage extends StatefulWidget {
+  @override
+  _MaterialListPageState createState() => _MaterialListPageState();
+}
+
+class _MaterialListPageState extends State<MaterialListPage> {
+  String message = '';
+
   final List<DemoItem> demos = <DemoItem>[
     DemoItem(icon: Icons.done, title: 'Buttons', subtitle: 'Material Buttons Demo'),
     DemoItem(icon: Icons.add_alert, title: 'Dialog', subtitle: 'Material Dialog Demo'),
@@ -39,60 +49,75 @@ class MaterialListPage extends StatelessWidget {
     DemoItem(icon: Icons.last_page, title: 'Sliver', subtitle: 'Material Sliver Demo'),
     DemoItem(icon: Icons.dock, title: 'NestedScrollView', subtitle: 'Material NestedScrollView Demo'),
     DemoItem(icon: Icons.pie_chart_outlined, title: 'ExpansionPanel', subtitle: 'Material ExpansionPanel Demo'),
+    DemoItem(icon: Icons.notifications, title: 'CustomNotification', subtitle: 'Custom Notification Demo'),
   ];
 
   @override 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Material'),
+        title: Text(message == '' ? 'Material' : message),
       ),
-      body: Center(
-        child: ListView.separated(
-          itemCount: demos.length,
-          separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).dividerColor),
-          itemBuilder: (BuildContext context, int index) {
-            final DemoItem item = demos[index];
-            return ListTile(
-              leading: Icon(item.icon),
-              title: Text(item.title, style: TextStyle(fontSize: 20.0)),
-              subtitle: Text(item.subtitle, style: TextStyle(fontSize: 13.0)),
-              onTap: () {
-                debugPrint('Material List Page Clicked Cell index:$index');
-                if (index == 0) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialButtonsDemoPage()));
-                } else if (index == 1) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialDialogDemoPage()));
-                } else if (index == 2) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SnackBarDemoPage()));
-                } else if (index == 3) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => BottomSheetDemoPage()));
-                } else if (index == 4) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DrawerDemoPage()));
-                } else if (index == 5) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialSwitchDemoPage()));
-                } else if (index == 10) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListViewDemoPage()));
-                } else if (index == 13) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialLayoutListPage()));
-                } else if (index == 14) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TextDemoPage()));
-                } else if (index == 15) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ImageDemoPage()));
-                } else if (index == 16) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => IconDemoPage()));
-                } else if (index == 17) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StepperDemoPage()));
-                } else if (index == 18) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SliverDemoPage()));
-                } else if (index == 19) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => NestedScrollViewDemoPage()));
-                } else if (index == 20) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ExpansionPanelDemoPage()));
-                }
-              },
-            );
-          },
+      body: NotificationListener<CustomNotification>(
+        onNotification: (CustomNotification notification) {
+          setState(() { 
+            debugPrint('已收到:${notification.message}');
+            message = notification.message; 
+          });
+        },
+        child: Center(
+          child: ListView.separated(
+            itemCount: demos.length,
+            separatorBuilder: (BuildContext context, int index) => Divider(color: Theme.of(context).dividerColor),
+            itemBuilder: (BuildContext context, int index) {
+              final DemoItem item = demos[index];
+              return ListTile(
+                leading: Icon(item.icon),
+                title: Text(item.title, style: TextStyle(fontSize: 20.0)),
+                subtitle: Text(item.subtitle, style: TextStyle(fontSize: 13.0)),
+                onTap: () {
+                  debugPrint('Material List Page Clicked Cell index:$index');
+                  if (index == 0) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialButtonsDemoPage()));
+                  } else if (index == 1) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialDialogDemoPage()));
+                  } else if (index == 2) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SnackBarDemoPage()));
+                  } else if (index == 3) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BottomSheetDemoPage()));
+                  } else if (index == 4) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DrawerDemoPage()));
+                  } else if (index == 5) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialSwitchDemoPage()));
+                  } else if (index == 7) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TextFieldDemoPage()));
+                  } else if (index == 8) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SliderDemoPage()));
+                  } else if (index == 10) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListViewDemoPage()));
+                  } else if (index == 13) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialLayoutListPage()));
+                  } else if (index == 14) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TextDemoPage()));
+                  } else if (index == 15) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ImageDemoPage()));
+                  } else if (index == 16) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => IconDemoPage()));
+                  } else if (index == 17) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => StepperDemoPage()));
+                  } else if (index == 18) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SliverDemoPage()));
+                  } else if (index == 19) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => NestedScrollViewDemoPage()));
+                  } else if (index == 20) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ExpansionPanelDemoPage()));
+                  } else if (index == 21) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CustomNotificationDemoPage()));
+                  }
+                },
+              );
+            },
+          ),
         ),
       ),
     );

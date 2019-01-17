@@ -13,6 +13,8 @@ import 'imagedemopage.dart';
 import 'icondemopage.dart';
 import 'listviewdemopage.dart';
 import 'stepperdemopage.dart';
+import 'sliderdemopage.dart';
+import 'textfieldemopage.dart';
 
 class CupertinoListPage extends StatelessWidget {
   final List<DemoItem> demos = <DemoItem>[
@@ -67,6 +69,10 @@ class CupertinoListPage extends StatelessWidget {
                         Navigator.push(context, CupertinoPageRoute(builder: (context) => DrawerDemoPage()));
                       } else if (index == 5) {
                         Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoSwitchDemoPage()));
+                      } else if (index == 7) {
+                        Navigator.push(context, CupertinoPageRoute(builder: (context) => TextFieldDemoPage()));
+                      } else if (index == 8) {
+                        Navigator.push(context, CupertinoPageRoute(builder: (context) => SliderDemoPage()));
                       } else if (index == 12) {
                         Navigator.push(context, CupertinoPageRoute(builder: (context) => TextDemoPage()));
                       } else if (index == 13) {
