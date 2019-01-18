@@ -38,28 +38,31 @@ class TextDemoPage extends StatelessWidget {
   ];
 
   Widget _buildiOS() {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        previousPageTitle: '返回',
-        middle: Text('Text Demo'),
-      ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverSafeArea(
-              top: true,
-              bottom: true,
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return texts[index];
-                  },
-                  childCount: texts.length,
+    return DefaultTextStyle(
+      style: TextStyle(fontFamily: '.SF UI Text', inherit: false, fontSize: 17.0, color: CupertinoColors.black),
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          previousPageTitle: '返回',
+          middle: Text('Text Demo'),
+        ),
+        child: DecoratedBox(
+          decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverSafeArea(
+                top: true,
+                bottom: true,
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return texts[index];
+                    },
+                    childCount: texts.length,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

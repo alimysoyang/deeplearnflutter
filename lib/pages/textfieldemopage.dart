@@ -27,6 +27,12 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
       navigationBar: CupertinoNavigationBar(
         previousPageTitle: '返回',
         middle: Text('TextField Demo'),
+        trailing: CupertinoButton(
+          child: Icon(Icons.done),
+          onPressed: () {
+            _hideKeyboard();
+          },
+        ),
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
@@ -100,6 +106,15 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('TextField Demo'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.done),
+            onPressed: () {
+              _hideKeyboard();
+
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10.0),

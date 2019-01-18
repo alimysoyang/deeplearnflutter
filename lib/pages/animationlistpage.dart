@@ -73,7 +73,7 @@ class AnimationListPage extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     final DemoItem item = demos[index];
-                    return DemoListItem(item: item, onTap: () {
+                    return CupertinoDemoListItem(item: item, onTap: () {
                       if (index == 0) {
                         Navigator.push(context, PageRouteBuilder(
                           transitionDuration: Duration(microseconds: 500),

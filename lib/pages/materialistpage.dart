@@ -18,6 +18,7 @@ import 'expansionpaneldemopage.dart';
 import 'customnotificationdemopage.dart';
 import 'sliderdemopage.dart';
 import 'textfieldemopage.dart';
+import 'textformfieldemo.dart';
 
 class MaterialListPage extends StatefulWidget {
   @override
@@ -50,6 +51,7 @@ class _MaterialListPageState extends State<MaterialListPage> {
     DemoItem(icon: Icons.dock, title: 'NestedScrollView', subtitle: 'Material NestedScrollView Demo'),
     DemoItem(icon: Icons.pie_chart_outlined, title: 'ExpansionPanel', subtitle: 'Material ExpansionPanel Demo'),
     DemoItem(icon: Icons.notifications, title: 'CustomNotification', subtitle: 'Custom Notification Demo'),
+    DemoItem(icon: Icons.text_fields, title: 'TextFormField', subtitle: 'TextFormField Demo'),
   ];
 
   @override 
@@ -113,6 +115,8 @@ class _MaterialListPageState extends State<MaterialListPage> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ExpansionPanelDemoPage()));
                   } else if (index == 21) {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CustomNotificationDemoPage()));
+                  } else if (index == 22) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TextFormFieldDemoPage()));
                   }
                 },
               );

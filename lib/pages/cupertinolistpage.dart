@@ -15,6 +15,7 @@ import 'listviewdemopage.dart';
 import 'stepperdemopage.dart';
 import 'sliderdemopage.dart';
 import 'textfieldemopage.dart';
+import 'textformfieldemo.dart';
 
 class CupertinoListPage extends StatelessWidget {
   final List<DemoItem> demos = <DemoItem>[
@@ -35,62 +36,68 @@ class CupertinoListPage extends StatelessWidget {
     DemoItem(icon: Icons.image_aspect_ratio, title: 'Icon', subtitle: 'Cupertino Icon Demo'),
     DemoItem(icon: Icons.list, title: 'ListView', subtitle: 'Cupertino ListView Demo'),
     DemoItem(icon: Icons.last_page, title: 'Stepper', subtitle: 'Cupertino Stepper Demo'),
+    DemoItem(icon: Icons.text_fields, title: 'TextFormField', subtitle: 'Cupertino TextFormField Demo'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        previousPageTitle: '返回' ,
-        middle: Text('Cupertino'),
-      ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverSafeArea(
-              top: true,
-              bottom: true,
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    final DemoItem item = demos[index];
-                    return DemoListItem(item: item, onTap: () {
-                      debugPrint('Cupertino List Page Clicked Cell index:$index');
-                      if (index == 0) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoButtonsDemoPage()));
-                      } else if (index == 1) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoAlertDemoPage()));
-                      } else if (index == 2) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => SnackBarDemoPage()));
-                      } else if (index == 3) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => BottomSheetDemoPage()));
-                      } else if (index == 4) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => DrawerDemoPage()));
-                      } else if (index == 5) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoSwitchDemoPage()));
-                      } else if (index == 7) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => TextFieldDemoPage()));
-                      } else if (index == 8) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => SliderDemoPage()));
-                      } else if (index == 12) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => TextDemoPage()));
-                      } else if (index == 13) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => ImageDemoPage()));
-                      } else if (index == 14) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => IconDemoPage()));
-                      } else if (index == 15) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => ListViewDemoPage()));
-                      } else if (index == 16) {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => StepperDemoPage()));
-                      }
-                    });
-                  },
-                  childCount: demos.length,
+    return DefaultTextStyle(
+      style: TextStyle(fontFamily: '.SF UI Text', inherit: false, fontSize: 17.0, color: CupertinoColors.black),
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          previousPageTitle: '返回' ,
+          middle: Text('Cupertino'),
+        ),
+        child: DecoratedBox(
+          decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverSafeArea(
+                top: true,
+                bottom: true,
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      final DemoItem item = demos[index];
+                      return CupertinoDemoListItem(item: item, onTap: () {
+                        debugPrint('Cupertino List Page Clicked Cell index:$index');
+                        if (index == 0) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoButtonsDemoPage()));
+                        } else if (index == 1) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoAlertDemoPage()));
+                        } else if (index == 2) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => SnackBarDemoPage()));
+                        } else if (index == 3) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => BottomSheetDemoPage()));
+                        } else if (index == 4) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => DrawerDemoPage()));
+                        } else if (index == 5) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => CupertinoSwitchDemoPage()));
+                        } else if (index == 7) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => TextFieldDemoPage()));
+                        } else if (index == 8) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => SliderDemoPage()));
+                        } else if (index == 12) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => TextDemoPage()));
+                        } else if (index == 13) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => ImageDemoPage()));
+                        } else if (index == 14) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => IconDemoPage()));
+                        } else if (index == 15) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => ListViewDemoPage()));
+                        } else if (index == 16) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => StepperDemoPage()));
+                        } else if (index == 17) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => TextFormFieldDemoPage()));
+                        }
+                      });
+                    },
+                    childCount: demos.length,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class ListItem extends StatelessWidget {
+class CupertinoListItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData leading;
   final IconData trailing;
   final VoidCallback onTap;
 
-  ListItem({ this.title, this.subtitle, this.leading, this.trailing, this.onTap });
+  CupertinoListItem({ this.title, this.subtitle, this.leading, this.trailing, this.onTap });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ListItem extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.only(bottom: 5.0),
-                    child: Text(title, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20.0, color: CupertinoColors.black)),
+                    child: Text(title, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20.0, color: CupertinoColors.activeOrange)),
                   ), 
                   Text(subtitle, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13.0, color: CupertinoColors.inactiveGray)),
                 ],
@@ -102,7 +102,7 @@ class MenuMenuListViewPage extends StatelessWidget {
         (BuildContext context, int index) {
           final String title = menus[index]['title'];
           final String subtitle = menus[index]['subtitle'];
-          return ListItem(title: title, subtitle: subtitle, leading: CupertinoIcons.collections, trailing: CupertinoIcons.right_chevron, onTap: () {
+          return CupertinoListItem(title: title, subtitle: subtitle, leading: CupertinoIcons.collections, trailing: CupertinoIcons.right_chevron, onTap: () {
             _routePage(context, index);
           });
         },
@@ -116,19 +116,22 @@ class MenuMenuListViewPage extends StatelessWidget {
     debugPrint(MediaQuery.of(context).size.toString());
 
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-      return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('深入学习Flutter(iOS)'),
-        ),
-        child: DecoratedBox(
-          decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverSafeArea(
-                top: true,
-                sliver: _buildSliverList(),
-              ),
-            ],
+      return DefaultTextStyle(
+        style: TextStyle(fontFamily: '.SF UI Text', inherit: false, fontSize: 17.0, color: CupertinoColors.black),
+        child: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('深入学习Flutter(iOS)'),
+          ),
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Color(0xFFEFEFF4)),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverSafeArea(
+                  top: true,
+                  sliver: _buildSliverList(),
+                ),
+              ],
+            ),
           ),
         ),
       );

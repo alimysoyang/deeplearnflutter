@@ -1,4 +1,4 @@
-#Thu Jan 17 14:34:09 CST 2019
+#Fri Jan 18 09:38:54 CST 2019
 base.0=/Project/FlutterProjects/deeplearnflutter/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
