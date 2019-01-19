@@ -19,6 +19,8 @@ import 'customnotificationdemopage.dart';
 import 'sliderdemopage.dart';
 import 'textfieldemopage.dart';
 import 'textformfieldemo.dart';
+import 'package:deeplearnflutter/modules/eventbus.dart';
+import 'package:deeplearnflutter/modules/userinfo.dart';
 
 class MaterialListPage extends StatefulWidget {
   @override
@@ -53,6 +55,26 @@ class _MaterialListPageState extends State<MaterialListPage> {
     DemoItem(icon: Icons.notifications, title: 'CustomNotification', subtitle: 'Custom Notification Demo'),
     DemoItem(icon: Icons.text_fields, title: 'TextFormField', subtitle: 'TextFormField Demo'),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    bus.on('login', (arg) {
+      if (arg[0] is UserInfo)
+      {
+        var tmp = arg[0] as UserInfo;
+        debugPrint('登录事件监听:${tmp.userName}');
+      } else {
+        debugPrint('登录事件监听未知对象:$arg');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    bus.off('login');
+    super.dispose();
+  }
 
   @override 
   Widget build(BuildContext context) {

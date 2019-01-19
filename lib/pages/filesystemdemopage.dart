@@ -89,70 +89,6 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
     );
   }
 
-// TextFormField(
-//           keyboardType: TextInputType.text,
-//           autocorrect: false,
-//           maxLines: 1,
-//           onSaved: (String value) {
-
-//           },
-//           validator: (String value) {
-
-//           },
-//           decoration: InputDecoration(
-//             hintText: '请输入文件夹名',
-//             icon: Icon(Icons.edit),
-//             labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid),
-//           ),
-//         ),
-  // void _showAndroidInput(BuildContext context) {
-  //   _androidPopup<String>(
-  //     context: context,
-  //     child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.stretch,
-  //         children: <Widget>[
-  //           TextField(
-  //             textCapitalization: TextCapitalization.characters,
-  //           autocorrect: false,
-  //           textInputAction: TextInputAction.done,
-  //           decoration: InputDecoration(
-  //             hintText: '请输入文件夹名',
-  //             hintStyle: TextStyle(fontSize: 13.0),
-  //             prefixIcon: Icon(Icons.edit),
-  //           ),
-  //           onChanged: (String value) {
-  //             setState(() { _inputValue = value; });
-  //           },
-  //           onSubmitted: (String value) {
-  //             setState(() { _inputValue = value; });
-  //           },
-  //         ),
-
-  //           ButtonBar(
-  //             alignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               RaisedButton(
-  //                 child: Text('确定'),
-  //                 color: Colors.redAccent,
-  //                 onPressed: () {
-  //                   Navigator.pop(context, _inputValue);
-  //                   _ioFile.createDirectory(_inputValue);
-  //                 },
-  //               ),
-  //               RaisedButton(
-  //                 child: Text('取消'),
-  //                 color: Colors.blueAccent,
-  //                 onPressed: () {
-  //                   Navigator.pop(context, '');
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //   );
-  // }
-
   void _showiOSInput(BuildContext context) {
     _iosPopup<String>(
       context: context, 
@@ -190,50 +126,6 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
           ),
         ],
       ),
-      // child: Column(
-      //   crossAxisAlignment: CrossAxisAlignment.stretch,
-      //   children: <Widget>[
-      //     CupertinoTextField(
-      //       prefix: Icon(CupertinoIcons.pen, color: CupertinoColors.lightBackgroundGray, size: 24.0),
-      //       padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 12.0),
-      //       clearButtonMode: OverlayVisibilityMode.editing,
-      //       textCapitalization: TextCapitalization.characters,
-      //       autocorrect: false,
-      //       decoration: BoxDecoration(
-      //         border: Border(bottom: BorderSide(width: 0.0, color: CupertinoColors.inactiveGray)),
-      //       ),
-      //       placeholder: '文件夹名',
-      //       onChanged: (String value) {
-      //         setState(() { _inputValue = value; });
-      //       },
-      //       onEditingComplete: () {
-
-      //       },
-      //       onSubmitted: (String value) {
-      //         setState(() { _inputValue = value; });
-      //       },
-      //     ),
-      //     ButtonBar(
-      //       children: <Widget>[
-      //         CupertinoButton(
-      //           child: Text('确定'),
-      //           color: CupertinoColors.destructiveRed,
-      //           onPressed: () {
-      //             Navigator.pop(context, _inputValue);
-      //             _ioFile.createDirectory(_inputValue);
-      //           },
-      //         ),
-      //         CupertinoButton(
-      //           child: Text('取消'),
-      //           color: CupertinoColors.activeBlue,
-      //           onPressed: () {
-      //             Navigator.pop(context, '');
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
     );
   }
 
@@ -246,6 +138,9 @@ class _FileSystemDemoPageState extends State<FileSystemDemoPage> {
           onTap: () {
             if (index == 0) {
               _ioFile.showDir();
+              // if (Platform.isAndroid) {
+              //   _ioFile.startShowAndroid();
+              // }
             } else if (index == 1) {
               if (Platform.isIOS) {
                 _showiOSInput(context);

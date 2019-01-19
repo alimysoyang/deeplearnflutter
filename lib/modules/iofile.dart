@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-// import 'package:simple_permissions/simple_permissions.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class IOFile {
   String rwfilePath = '';
@@ -56,6 +56,28 @@ class IOFile {
     //         });
     //       }
     //     });
+    //   });
+    // } catch (e) {
+    //   print('Android遍历文件错误:${e.toString()}');
+    // }
+
+    // try {
+    //   PermissionHandler().requestPermissions([PermissionGroup.storage]).then((Map<PermissionGroup, PermissionStatus> requestResult) {
+    //     if (requestResult[PermissionGroup.storage] == PermissionStatus.granted) {
+    //       getExternalStorageDirectory().then((Directory file) {
+    //         var count = file.listSync().length;
+    //         if (count > 0) {
+    //           file.listSync().forEach((FileSystemEntity entity) {
+    //             if (entity is File) {
+    //               print('这是文件:${entity.path}');
+    //             } else if (entity is Directory) {
+    //               print('这是文件夹${entity.path}');
+    //               _showAndroidFiles(entity.path);
+    //             }
+    //           });
+    //         }
+    //       });
+    //     }
     //   });
     // } catch (e) {
     //   print('Android遍历文件错误:${e.toString()}');

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:deeplearnflutter/modules/userinfo.dart';
+import 'package:deeplearnflutter/modules/eventbus.dart';
 
 class TextFieldDemoPage extends StatefulWidget {
   @override
@@ -13,6 +15,8 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
   FocusNode _node3 = FocusNode();
   FocusNode _node4 = FocusNode();
 
+  UserInfo _userInfo = UserInfo();
+
   TextEditingController _nameController = TextEditingController();
 
   void _hideKeyboard() {
@@ -20,6 +24,9 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
     _node2.unfocus();
     _node3.unfocus();
     _node4.unfocus();
+
+    bus.emit('login', [_userInfo]);
+    Navigator.pop(context);
   }
 
   Widget _buildiOS() {
@@ -56,7 +63,7 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
                           prefix: Icon(Icons.person),
                           placeholder: '请输入用户名',
                           onChanged: (String value) {
-
+                            setState(() { _userInfo.userName = value; });
                           },
                           onSubmitted: (String value) {
 
@@ -71,7 +78,7 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
                           prefix: Icon(Icons.lock),
                           placeholder: '请输入长度8位以上的密码',
                           onChanged: (String value) {
-
+                            setState(() { _userInfo.password = value; });
                           },
                           onSubmitted: (String value) {
 
@@ -83,7 +90,7 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
                           focusNode: _node3,
                           textInputAction: TextInputAction.done,
                           onChanged: (String value) {
-
+                            setState(() { _userInfo.email = value; });
                           },
                           onSubmitted: (String value) {
 
@@ -111,7 +118,6 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
             icon: Icon(Icons.done),
             onPressed: () {
               _hideKeyboard();
-
             },
           ),
         ],
@@ -131,7 +137,7 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
                 prefixIcon: Icon(Icons.person),
               ),
               onChanged: (String value) {
-
+                setState(() { _userInfo.userName = value; });
               },
               onSubmitted: (String value) {
 
@@ -149,7 +155,7 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
               ),
               obscureText: true,
               onChanged: (String value) {
-
+                setState(() { _userInfo.password = value; });
               },
               onSubmitted: (String value) {
 
@@ -168,6 +174,9 @@ class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
                   prefixIcon: Icon(Icons.email),
                   border: InputBorder.none,             //无下划线
                 ),
+                onChanged: (String value) {
+                  setState(() { _userInfo.email = value; });
+                },
               ),
             ),
 

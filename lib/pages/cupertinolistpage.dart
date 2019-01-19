@@ -16,8 +16,15 @@ import 'stepperdemopage.dart';
 import 'sliderdemopage.dart';
 import 'textfieldemopage.dart';
 import 'textformfieldemo.dart';
+import 'package:deeplearnflutter/modules/eventbus.dart';
+import 'package:deeplearnflutter/modules/userinfo.dart';
 
-class CupertinoListPage extends StatelessWidget {
+class CupertinoListPage extends StatefulWidget {
+  @override
+  _CupertinoListPageState createState() => _CupertinoListPageState();
+}
+
+class _CupertinoListPageState extends State<CupertinoListPage> {
   final List<DemoItem> demos = <DemoItem>[
     DemoItem(icon: Icons.tab, title: 'Buttons', subtitle: 'Cupertino Buttons Demo'),
     DemoItem(icon: Icons.add_alert, title: 'Alert', subtitle: 'Cupertino Alert Demo'),
@@ -38,6 +45,26 @@ class CupertinoListPage extends StatelessWidget {
     DemoItem(icon: Icons.last_page, title: 'Stepper', subtitle: 'Cupertino Stepper Demo'),
     DemoItem(icon: Icons.text_fields, title: 'TextFormField', subtitle: 'Cupertino TextFormField Demo'),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    bus.on('login', (arg) {
+      if (arg[0] is UserInfo)
+      {
+        var tmp = arg[0] as UserInfo;
+        debugPrint('登录事件监听:${tmp.userName}');
+      } else {
+        debugPrint('登录事件监听未知对象:$arg');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    bus.off('login');
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

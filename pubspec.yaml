@@ -16,7 +16,7 @@ dependencies:
   intl: any
   path_provider: any
   web_socket_channel: any
-  # simple_permissions: any
+  # permission_handler: '^2.1.2'
   flutter:
     sdk: flutter
 
